@@ -1,8 +1,9 @@
 'use client';
 
-import Link from 'next/link';
 import { ShoppingCart } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import { Header } from '@/components/Header';
+import { Search } from '@/components/Search';
 
 export default function Home() {
   useEffect(() => {
@@ -14,26 +15,9 @@ export default function Home() {
 
   return (
     <main className="flex min-h-screen flex-col">
-      <header className="flex h-12 items-center bg-slate-400 px-4">
-        <Link href="/">
-          <span className="text-xl font-bold">AwStore</span>
-        </Link>
-      </header>
+      <Header title="AwStore" />
 
-      <section id="search" className="pt-10">
-        <form className="flex justify-center gap-3">
-          <input
-            type="search"
-            className="mb-3 h-10 rounded-md border border-solid border-zinc-500 px-4 py-2 shadow-lg outline-none"
-          />
-          <button
-            type="submit"
-            className="h-10 rounded-md bg-teal-700 px-3 text-white transition-colors hover:bg-teal-900"
-          >
-            Search
-          </button>
-        </form>
-      </section>
+      <Search />
 
       <section id="product-listing" className="mx-auto flex max-w-5xl flex-wrap gap-3 px-3 py-8">
         {[1, 2, 3, 4, 5, 6, 7].map((i) => (
