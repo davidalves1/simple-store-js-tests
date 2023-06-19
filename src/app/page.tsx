@@ -13,11 +13,15 @@ export default function Home() {
       .catch((err) => console.log('🚀 ~ useEffect ~ err:', err));
   }, []);
 
+  const handleSearch = (term: string) => {
+    console.log('🚀 ~ handleSearch ~ term:', term);
+  };
+
   return (
     <main className="flex min-h-screen flex-col">
       <Header title="AwStore" />
 
-      <Search />
+      <Search onSearch={handleSearch} />
 
       <section id="product-listing" className="mx-auto flex max-w-5xl flex-wrap gap-3 px-3 py-8">
         {[1, 2, 3, 4, 5, 6, 7].map((i) => (
