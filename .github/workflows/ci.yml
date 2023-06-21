@@ -1,0 +1,32 @@
+name: CI - Build and Test
+
+on:
+  push:
+    branches: [ "main"]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16.x]
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Use NodeJS ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'yarn'
+
+    - name: Install packages
+      run: yarn install --frozen-lockfile
+
+    - name: Test
+      run: yarn test:cov
+
+    - name: Build
+      run: yarn build
