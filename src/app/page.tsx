@@ -5,11 +5,7 @@ import { useContext, useEffect } from 'react';
 import { Header } from '@/components/Header';
 import { Search } from '@/components/Search';
 import { CartActionType, CartContext } from '@/context/cart';
-
-const cartStyle = {
-  show: 'translate-x-0',
-  hide: 'translate-x-60',
-};
+import { Cart } from '@/components/Cart';
 
 export default function Home() {
   const { cartState, dispatch } = useContext(CartContext);
@@ -21,7 +17,7 @@ export default function Home() {
       .catch((err) => console.log('🚀 ~ useEffect ~ err:', err));
   }, []);
 
-  const toggleCart = () => {
+  const toggleCartView = () => {
     dispatch({ type: CartActionType.TOGGLE });
   };
 
@@ -31,17 +27,10 @@ export default function Home() {
 
   return (
     <main className="flex min-h-screen flex-col">
-      <Header title="AwStore" />
+      <Header title="AwStore" onToggleCartView={toggleCartView} />
 
       <div id="container" className="mx-auto flex flex-nowrap">
         <div id="listing" className="flex flex-col">
-          <button
-            className="flex h-8 items-center justify-center rounded-md bg-yellow-500 px-3 py-2"
-            onClick={toggleCart}
-          >
-            Cart
-          </button>
-
           <Search onSearch={handleSearch} />
 
           <section id="product-listing" className="mx-auto flex max-w-5xl flex-wrap gap-3 px-3 py-8">
@@ -73,17 +62,8 @@ export default function Home() {
             ))}
           </section>
         </div>
-        <aside
-          id="cart"
-          className={`absolute right-0 flex min-h-screen w-60 flex-col overflow-hidden bg-white p-2 shadow-lg transition-all duration-500 ${
-            cartState.open ? cartStyle.show : cartStyle.hide
-          }`}
-        >
-          <div className="text-slate-500">
-            <XIcon className="cursor-pointer" onClick={toggleCart} />
-          </div>
-          <h2>Cart</h2>
-        </aside>
+
+        <Cart isOpen={cartState.open} onToggleView={toggleCartView} />
       </div>
     </main>
   );

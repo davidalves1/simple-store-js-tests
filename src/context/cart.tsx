@@ -4,24 +4,32 @@ import { Dispatch, createContext, useReducer } from 'react';
 
 export enum CartActionType {
   TOGGLE = 'TOGGLE',
+  ADD_ITEM = 'ADD_ITEM',
 }
 
 interface CartState {
   open: boolean;
+  items: string[];
 }
 
 interface CartAction {
   type: CartActionType;
+  data: {
+    [key: string]: unknown;
+  };
 }
 
 const initialState: CartState = {
   open: false,
+  items: [],
 };
 
 const reducer = (state: CartState, action: CartAction) => {
   switch (action.type) {
     case CartActionType.TOGGLE:
       return { ...state, open: !state.open };
+    case CartActionType.ADD_ITEM:
+      return { ...state, items: [...state.items, action.data.item] };
     default:
       return state;
   }
