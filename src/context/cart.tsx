@@ -12,10 +12,13 @@ interface CartState {
   items: string[];
 }
 
+// TODO: import from a model??? Also should use the correct structure
+type CartItem = string;
+
 interface CartAction {
   type: CartActionType;
-  data: {
-    [key: string]: unknown;
+  data?: {
+    item: CartItem;
   };
 }
 
@@ -24,21 +27,29 @@ const initialState: CartState = {
   items: [],
 };
 
+// TODO: extract to a external file???
 const reducer = (state: CartState, action: CartAction) => {
   switch (action.type) {
     case CartActionType.TOGGLE:
       return { ...state, open: !state.open };
-    case CartActionType.ADD_ITEM:
+    case CartActionType.ADD_ITEM: {
+      if (!action?.data?.item) {
+        return state;
+      }
+
       return { ...state, items: [...state.items, action.data.item] };
+    }
     default:
       return state;
   }
 };
 
-export const CartContext = createContext<{
+export interface CartContextType {
   cartState: CartState;
   dispatch: Dispatch<CartAction>;
-}>({ cartState: initialState, dispatch: () => null });
+}
+
+export const CartContext = createContext<CartContextType>({ cartState: initialState, dispatch: () => null });
 
 export const CartContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [cartState, dispatch] = useReducer(reducer, initialState);

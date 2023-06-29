@@ -14,6 +14,7 @@ export const Header = ({ title, onToggleCartView }: HeaderProps) => (
       </span>
     </Link>
     <button
+      data-test={'header-cart-button'}
       onClick={onToggleCartView}
       className="flex h-8 w-8 items-center justify-center rounded-full bg-slate-300 shadow-sm"
     >
