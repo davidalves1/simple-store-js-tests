@@ -1,15 +1,13 @@
 'use client';
 
-import { ShoppingCart, XIcon } from 'lucide-react';
-import { useContext, useEffect } from 'react';
+import { ShoppingCart } from 'lucide-react';
+import { useEffect } from 'react';
 import { Header } from '@/components/Header';
 import { Search } from '@/components/Search';
-import { CartActionType, CartContext } from '@/context/cart';
 import { Cart } from '@/components/Cart';
+import { useCart } from '@/hooks/cartHook';
 
 export default function Home() {
-  const { cartState, dispatch } = useContext(CartContext);
-
   useEffect(() => {
     fetch('https://fakestoreapi.com/products')
       .then((res) => res.json())
@@ -17,20 +15,28 @@ export default function Home() {
       .catch((err) => console.log('🚀 ~ useEffect ~ err:', err));
   }, []);
 
-  const toggleCartView = () => {
-    dispatch({ type: CartActionType.TOGGLE });
-  };
+  // TODO: remove
+  const { addCartItem } = useCart();
 
+  // TODO
   const handleSearch = (term: string) => {
     console.log('🚀 ~ handleSearch ~ term:', term);
   };
 
+  // TODO: remove
+  const handleAddCartItem = () => {
+    addCartItem();
+  };
+
   return (
     <main className="flex min-h-screen flex-col">
-      <Header title="AwStore" onToggleCartView={toggleCartView} />
+      <Header title="AwStore" />
 
       <div id="container" className="mx-auto flex flex-nowrap">
         <div id="listing" className="flex flex-col">
+          <button data-test="search-button" onClick={handleAddCartItem} className="h-10 rounded-md bg-yellow-500 px-3">
+            Search
+          </button>
           <Search onSearch={handleSearch} />
 
           <section id="product-listing" className="mx-auto flex max-w-5xl flex-wrap gap-3 px-3 py-8">
@@ -63,7 +69,7 @@ export default function Home() {
           </section>
         </div>
 
-        <Cart isOpen={cartState.open} onToggleView={toggleCartView} />
+        <Cart />
       </div>
     </main>
   );

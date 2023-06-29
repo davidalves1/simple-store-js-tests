@@ -1,9 +1,7 @@
+import { useCart } from '@/hooks/cartHook';
 import { XIcon } from 'lucide-react';
 
-interface CartProps {
-  isOpen: boolean;
-  onToggleView: () => void;
-}
+type CartProps = {};
 
 const cartStyle = {
   show: 'translate-x-0 shadow-[-5px_0px_10px_1px_#00000024]',
@@ -11,19 +9,26 @@ const cartStyle = {
 };
 
 export const Cart = (props: CartProps) => {
+  const { cartState, toggleCartView } = useCart();
+
   return (
     <aside
       id="cart"
-      className={`absolute right-0 min-h-screen w-64 flex-col bg-white p-2 transition-all duration-500 ${
-        props.isOpen ? cartStyle.show : cartStyle.hide
+      className={`absolute right-0 flex min-h-screen w-64 flex-col bg-white p-2 transition-all duration-500 ${
+        cartState.open ? cartStyle.show : cartStyle.hide
       }`}
     >
       <div className="text-slate-500">
-        <XIcon className="cursor-pointer" onClick={props.onToggleView} />
+        <XIcon className="cursor-pointer" onClick={toggleCartView} />
       </div>
-      <div className="relative box-border w-full">
-        <h2>Cart</h2>
-      </div>
+
+      <h2>Cart</h2>
+
+      <ul>
+        {cartState.items.map((item, i) => (
+          <li key={i}>{item}</li>
+        ))}
+      </ul>
     </aside>
   );
 };
