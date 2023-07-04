@@ -18,8 +18,4 @@ describe('Header', () => {
 
     expect(headerTitle.textContent).toBe(mockTitle);
   });
-
-  it.todo('should change cart view when the button is clicked');
-  it.todo('should show cart badge when it has items');
-  it.todo('should show proper value of cart items on cart badge');
 });

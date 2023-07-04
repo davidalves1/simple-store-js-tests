@@ -1,8 +1,8 @@
 'use client';
 
 import { useCart } from '@/hooks/cartHook';
-import { ShoppingCart } from 'lucide-react';
 import Link from 'next/link';
+import { CartButton } from './CartButton';
 
 interface HeaderProps {
   title: string;
@@ -18,21 +18,7 @@ export const Header = ({ title }: HeaderProps) => {
           {title}
         </span>
       </Link>
-      <button
-        data-test={'header-cart-button'}
-        onClick={toggleCartView}
-        className="flex h-8 w-8 items-center justify-center rounded-full bg-slate-300 shadow-sm"
-      >
-        {!!cartState.items.length && (
-          <div
-            id="badge"
-            className="absolute mx-auto h-3 w-3 -translate-y-3 translate-x-3 rounded-full bg-red-600  text-center align-middle text-[8px] text-white"
-          >
-            {cartState.items.length}
-          </div>
-        )}
-        <ShoppingCart size={16} />
-      </button>
+      <CartButton totalCartItems={cartState.items.length} onToggleCartView={toggleCartView} />
     </header>
   );
 };
