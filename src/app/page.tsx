@@ -6,6 +6,7 @@ import { Header } from '@/components/Header';
 import { Search } from '@/components/Search';
 import { Cart } from '@/components/Cart';
 import { useCart } from '@/hooks/cartHook';
+import Image from 'next/image';
 
 export default function Home() {
   useEffect(() => {
@@ -25,7 +26,19 @@ export default function Home() {
 
   // TODO: remove
   const handleAddCartItem = () => {
-    addCartItem();
+    addCartItem({
+      id: 1,
+      title: 'Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops',
+      price: 109.95,
+      description:
+        'Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your everyday',
+      category: "men's clothing",
+      image: 'https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg',
+      rating: {
+        rate: 3.9,
+        count: 120,
+      },
+    });
   };
 
   return (
@@ -51,11 +64,12 @@ export default function Home() {
                   <span className="text-xs text-zinc-400">200 Products</span>
                 </div>
                 <div id="card-body" className="flex h-40 items-center justify-center bg-zinc-100">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
+                  <Image
                     className="max-w-full"
-                    src="https://www.worten.pt/i/c524cb4b199daed6541497b6109f2b105f5f9278.jpg"
+                    src="https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg"
                     alt="Tenis Nike"
+                    width={100}
+                    height={100}
                   />
                 </div>
                 <div id="car-footer" className="cl flex items-center justify-between">

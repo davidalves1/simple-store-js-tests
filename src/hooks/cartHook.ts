@@ -1,4 +1,5 @@
 import { CartActionType, CartContext } from '@/context/cart';
+import { Product } from '@/shared/model/Product';
 import { useContext } from 'react';
 
 type UseCartProps = {};
@@ -10,8 +11,8 @@ export const useCart = (props: UseCartProps = {}) => {
     dispatch({ type: CartActionType.TOGGLE });
   };
 
-  const addCartItem = () => {
-    dispatch({ type: CartActionType.ADD_ITEM, data: { item: 'FOO BAR' } });
+  const addCartItem = (product: Product) => {
+    dispatch({ type: CartActionType.ADD_ITEM, data: { item: product } });
   };
 
   return {

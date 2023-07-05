@@ -1,5 +1,6 @@
 'use client';
 
+import { Product } from '@/shared/model/Product';
 import { Dispatch, createContext, useReducer } from 'react';
 
 export enum CartActionType {
@@ -9,16 +10,13 @@ export enum CartActionType {
 
 interface CartState {
   open: boolean;
-  items: string[];
+  items: Product[];
 }
-
-// TODO: import from a model??? Also should use the correct structure
-type CartItem = string;
 
 interface CartAction {
   type: CartActionType;
   data?: {
-    item: CartItem;
+    item: Product;
   };
 }
 
