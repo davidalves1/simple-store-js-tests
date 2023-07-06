@@ -1,5 +1,3 @@
-Sure, based on the information you provided, here's a possible README file for the repository using markdown syntax:
-
 # Simple Store JS Tests
 
 A simple store application to apply the lessons of the JS Tests course.
