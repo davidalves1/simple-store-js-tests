@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import { Trash, XIcon } from 'lucide-react';
+import { Minus, Plus, Trash, XIcon } from 'lucide-react';
 
 import { useCart } from '@/hooks/cartHook';
 
@@ -11,7 +11,8 @@ const cartStyle = {
 };
 
 export const Cart = (props: CartProps) => {
-  const { cartState, toggleCartView } = useCart();
+  // TODO: separate in small components
+  const { cartState, toggleCartView, removeCartItem, increaseCartItem, decreaseCartItem } = useCart();
 
   return (
     <aside
@@ -38,13 +39,30 @@ export const Cart = (props: CartProps) => {
                   <Image src={item.image} alt={item.title} width={50} height={50} />
                 </div>
                 <div className="flex-1 text-sm">
-                  <h3 className="w-32 overflow-x-hidden overflow-ellipsis whitespace-nowrap">{item.title}</h3>
-                  <p className="text-xs">Qty: 1</p>
+                  <h3 className="mb-1 w-36 overflow-x-hidden overflow-ellipsis whitespace-nowrap">{item.title}</h3>
+                  <div className="mb-1 flex gap-1">
+                    <p className="text-xs">Qty: {item.quantity}</p>
+                    <button
+                      className="ml-1 flex h-4 w-4 cursor-pointer items-center justify-center rounded-full bg-slate-300 shadow-sm transition-all hover:bg-slate-400"
+                      onClick={() => increaseCartItem(item)}
+                    >
+                      <Plus width={8} height={8} />
+                    </button>
+                    <button
+                      className="flex h-4 w-4 cursor-pointer items-center justify-center rounded-full bg-slate-300 shadow-sm transition-all hover:bg-slate-400"
+                      onClick={() => decreaseCartItem(item)}
+                    >
+                      <Minus width={8} height={8} />
+                    </button>
+                  </div>
                   <p className="font-bold">Price: ${item.price}</p>
                 </div>
-                <div className="flex h-6 w-6 cursor-pointer items-center justify-center rounded-full bg-slate-300 shadow-sm transition-all hover:bg-slate-400">
+                <button
+                  className="flex h-6 w-6 cursor-pointer items-center justify-center rounded-full bg-slate-300 shadow-sm transition-all hover:bg-slate-400"
+                  onClick={() => removeCartItem(item)}
+                >
                   <Trash width={12} height={12} />
-                </div>
+                </button>
               </div>
             </li>
           ))}

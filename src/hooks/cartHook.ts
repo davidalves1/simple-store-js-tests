@@ -15,9 +15,24 @@ export const useCart = (props: UseCartProps = {}) => {
     dispatch({ type: CartActionType.ADD_ITEM, data: { item: product } });
   };
 
+  const removeCartItem = (product: Product) => {
+    dispatch({ type: CartActionType.REMOVE_ITEM, data: { item: product } });
+  };
+
+  const increaseCartItem = (product: Product) => {
+    dispatch({ type: CartActionType.INCREASE, data: { item: product } });
+  };
+
+  const decreaseCartItem = (product: Product) => {
+    dispatch({ type: CartActionType.DECREASE, data: { item: product } });
+  };
+
   return {
     cartState,
     toggleCartView,
     addCartItem,
+    removeCartItem,
+    increaseCartItem,
+    decreaseCartItem,
   };
 };

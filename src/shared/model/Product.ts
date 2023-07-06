@@ -12,3 +12,7 @@ export interface Product {
   category?: string;
   rating?: ProductRating;
 }
+
+export interface CartProduct extends Product {
+  quantity: number;
+}
