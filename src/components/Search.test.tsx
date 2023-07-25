@@ -1,3 +1,4 @@
+import { act } from 'react-dom/test-utils';
 import { Search } from './Search';
 import { fireEvent, render } from '@testing-library/react';
 
@@ -19,7 +20,7 @@ describe('<Search />', () => {
     expect(searchButton).toBeInTheDocument();
   });
 
-  it('should call the onSearch prop with the search input value when search button is clicked', () => {
+  it('should call proper props.onSearch when the form is submitted', () => {
     const mockInputValue = 'Nike';
     const { getByTestId } = mountComponent();
     const searchInput = getByTestId('search-input');
@@ -31,6 +32,4 @@ describe('<Search />', () => {
     expect(onSubmitMock).toHaveBeenCalledTimes(1);
     expect(onSubmitMock).toHaveBeenCalledWith(mockInputValue);
   });
-
-  it.todo('should clear search input when click on clean button');
 });

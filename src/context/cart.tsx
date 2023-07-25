@@ -1,6 +1,6 @@
 'use client';
 
-import { Product, CartProduct } from '@/shared/model/Product';
+import { Product, CartProduct } from '@/models/Product';
 import { Dispatch, createContext, useReducer } from 'react';
 
 export enum CartActionType {

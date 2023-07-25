@@ -1,5 +1,5 @@
 import { CartActionType, CartContext } from '@/context/cart';
-import { Product } from '@/shared/model/Product';
+import { Product } from '@/models/Product';
 import { useContext } from 'react';
 
 type UseCartProps = {};
