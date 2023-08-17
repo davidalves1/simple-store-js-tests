@@ -11,4 +11,3 @@
 
 ## Issue (if exsists):
 https://github.com/davidalves1/simple-store-js-tests/issues/ISSUE_ID
-
