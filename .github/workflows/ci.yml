@@ -1,13 +1,13 @@
 name: CI - Build and Test
 
-on:
-  push:
-    branches: [ "main"]
-  pull_request:
-    types: [opened, reopened, edited, synchronize, ready_for_review]
+on: push
+  # push:
+  #   branches: [ "main"]
+  # pull_request:
+  #   types: [opened, reopened, edited, synchronize, ready_for_review]
 
 jobs:
-  build:
+  build-and-test:
     runs-on: ubuntu-latest
 
     strategy:
