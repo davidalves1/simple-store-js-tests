@@ -1,5 +1,13 @@
 import { ProductCard } from './ProductCard';
-import { render } from '@testing-library/react';
+import { render, act, fireEvent } from '@testing-library/react';
+import { useCart } from '@/hooks/cartHook';
+
+const mockAddCartItem = jest.fn();
+jest.mock('@/hooks/cartHook', () => ({
+  useCart: jest.fn(() => ({
+    addCartItem: mockAddCartItem,
+  })),
+}));
 
 const MOCK_PRODUCT_ITEM = {
   id: 1,
@@ -46,5 +54,18 @@ describe('<ProductCard />', () => {
       encodeURIComponent('https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg'),
     );
     expect(productPrice.textContent).toBe(`$${MOCK_PRODUCT_ITEM.price}`);
+  });
+
+  it('should add product to cart when button is clicked', () => {
+    const { getByTestId } = mountComponent();
+
+    const addCartItemBtn = getByTestId('add-cart-item-btn');
+
+    act(() => {
+      fireEvent.click(addCartItemBtn);
+    });
+
+    expect(mockAddCartItem).toHaveBeenCalledTimes(1);
+    expect(mockAddCartItem).toHaveBeenCalledWith(MOCK_PRODUCT_ITEM);
   });
 });

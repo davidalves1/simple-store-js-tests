@@ -9,7 +9,7 @@ interface ProductCardProps {
 }
 
 export const ProductCard = ({ product }: ProductCardProps) => {
-  const { addCartItem } = useCart(product);
+  const { addCartItem } = useCart();
 
   const handleAddCartItem = (product: Product) => () => addCartItem(product);
 
@@ -37,6 +37,7 @@ export const ProductCard = ({ product }: ProductCardProps) => {
         </span>
 
         <button
+          data-test="add-cart-item-btn"
           className="flex h-8 w-8 items-center justify-center rounded-full bg-teal-600 text-white shadow-sm transition hover:bg-teal-700"
           onClick={handleAddCartItem(product)}
         >

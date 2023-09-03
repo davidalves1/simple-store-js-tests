@@ -13,7 +13,7 @@ const config = {
   modulePaths: ['<rootDir>/src/'],
   passWithNoTests: true,
   moduleNameMapper: {
-    '^@/(.*)$': '<rootDir>/$1',
+    '^@/(.*)$': '<rootDir>/src/$1',
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'json', 'node'],
 };

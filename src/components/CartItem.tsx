@@ -22,12 +22,15 @@ export const CartItem = ({ product, onIncrease, onDecrease, onRemove }: CartItem
       </div>
 
       <div className="flex-1 text-sm">
-        <h3 className="mb-1 w-36 overflow-x-hidden overflow-ellipsis whitespace-nowrap">{product.title}</h3>
+        <h3 data-test="cart-item-title" className="mb-1 w-36 overflow-x-hidden overflow-ellipsis whitespace-nowrap">
+          {product.title}
+        </h3>
 
         <div className="mb-1 flex gap-1">
           <p className="text-xs">Qty: {product.quantity}</p>
 
           <button
+            data-test="cart-item-increase-btn"
             className="ml-1 flex h-4 w-4 cursor-pointer items-center justify-center rounded-full bg-slate-300 shadow-sm transition-all hover:bg-slate-400"
             onClick={handleIncrease(product)}
           >
@@ -35,6 +38,7 @@ export const CartItem = ({ product, onIncrease, onDecrease, onRemove }: CartItem
           </button>
 
           <button
+            data-test="cart-item-decrease-btn"
             className="flex h-4 w-4 cursor-pointer items-center justify-center rounded-full bg-slate-300 shadow-sm transition-all hover:bg-slate-400"
             onClick={handleDecrease(product)}
           >
@@ -46,6 +50,7 @@ export const CartItem = ({ product, onIncrease, onDecrease, onRemove }: CartItem
       </div>
 
       <button
+        data-test="cart-item-remove-btn"
         className="flex h-6 w-6 cursor-pointer items-center justify-center rounded-full bg-slate-300 shadow-sm transition-all hover:bg-slate-400"
         onClick={handleRemove(product)}
       >
