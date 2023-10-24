@@ -1,0 +1,42 @@
+name: CI - Merge and Publish
+
+on:
+  push:
+    branches:
+    - master
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    strategy:
+      matrix:
+        node-version: [18.x]
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Use NodeJS ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'yarn'
+
+    - name: Install packages
+      run: yarn install --frozen-lockfile
+
+    - name: Test
+      run: yarn test:cov
+
+    - name: Build
+      run: yarn build
+
+    - name: Publish to Netlify
+      uses: netlify/actions/cli@master
+      with:
+        args: deploy --dir=site --prod
+      env:
+        NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
