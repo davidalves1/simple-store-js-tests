@@ -22,6 +22,12 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
+## Deploy on Netlify manually
+
+https://github.com/netlify/next-runtime#manually-installing-the-nextjs-runtime
+https://paulonteri.com/thoughts/how-to/deploy-nextjs-to-netlify-manually
+
+
 ## License
 
 This project is licensed under the [MIT License](LICENSE).
