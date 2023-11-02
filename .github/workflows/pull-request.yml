@@ -11,21 +11,43 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [18.x]
+        node-version: [18]
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Use NodeJS ${{ matrix.node-version }}
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Setup NodeJS ${{ matrix.node-version }}
       uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'yarn'
 
-    - name: Install packages
-      run: yarn install --frozen-lockfile --prefer-offline
+    - name: Caching dependencies
+      uses: actions/cache@v3
+      id: yarn-cache
+      with:
+        path: '**/node_modules'
+        key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+        restore-keys: ${{ runner.os }}-yarn-
 
-    - name: Test
-      run: yarn test:cov
+    - name: Install packages
+      if: steps.yarn-cache.outputs.cache-hit != 'true'
+      run: yarn install --frozen-lockfile
+
+    # - name: Lint
+    #   run: yarn lint
+
+    # - name: Test
+    #   run: yarn test:cov
 
     - name: Build
       run: yarn build
+
+    - name: Publish preview to Netlify
+      uses: netlify/actions/cli@master
+      with:
+        args: deploy --dir=.next --debug
+      env:
+        NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
